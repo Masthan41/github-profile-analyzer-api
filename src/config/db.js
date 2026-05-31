@@ -43,6 +43,17 @@ const dbConfig = {
 
 const pool = mysql.createPool(dbConfig);
 
+function logDatabaseConfig() {
+  const configuredHost =
+    process.env.DB_HOST ||
+    process.env.MYSQLHOST ||
+    mysqlUrlConfig.host ||
+    '(missing, using localhost fallback)';
+
+  console.log(`Database host configured as: ${configuredHost}`);
+  console.log(`Database name configured as: ${databaseName}`);
+}
+
 async function ensureDatabaseExists() {
   const connection = await mysql.createConnection(baseConfig);
   const safeDatabaseName = databaseName.replace(/`/g, '``');
@@ -107,6 +118,7 @@ async function ensureDatabaseSchema() {
 module.exports = {
   pool,
   ensureDatabaseExists,
+  logDatabaseConfig,
   testConnection,
   ensureDatabaseSchema
 };

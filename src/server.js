@@ -1,10 +1,16 @@
 const app = require('./app');
-const { ensureDatabaseExists, testConnection, ensureDatabaseSchema } = require('./config/db');
+const {
+  ensureDatabaseExists,
+  logDatabaseConfig,
+  testConnection,
+  ensureDatabaseSchema
+} = require('./config/db');
 
 const PORT = process.env.PORT || 5000;
 
 async function startServer() {
   try {
+    logDatabaseConfig();
     await ensureDatabaseExists();
     await testConnection();
     await ensureDatabaseSchema();
