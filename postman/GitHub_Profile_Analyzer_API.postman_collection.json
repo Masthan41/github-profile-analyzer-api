@@ -1,0 +1,76 @@
+{
+  "info": {
+    "name": "GitHub Profile Analyzer API",
+    "description": "Postman collection for the GitHub Profile Analyzer backend.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "username",
+      "value": "octocat"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Analyze GitHub Profile",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{username}}\"\n}"
+        },
+        "url": "{{baseUrl}}/api/profiles/analyze"
+      }
+    },
+    {
+      "name": "Get All Stored Profiles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/profiles?page=1&limit=20"
+      }
+    },
+    {
+      "name": "Search Stored Profiles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/profiles?page=1&limit=20&search={{username}}"
+      }
+    },
+    {
+      "name": "Get Single Stored Profile",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/profiles/{{username}}"
+      }
+    },
+    {
+      "name": "Delete Stored Profile",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/profiles/{{username}}"
+      }
+    }
+  ]
+}
